@@ -8,7 +8,7 @@ License:	CC-BY-SA v4.0
 Group:		Applications/Databases
 # Last freely-redistributable (CC-BY-SA 4.0) GeoLite2 build before MaxMind's
 # 2019-12-30 license-key wall, recovered from the Internet Archive.
-Source0:	https://web.archive.org/web/20190409074343id_/http://geolite.maxmind.com/download/geoip/database/GeoLite2-%{dbname}.mmdb.gz?/GeoLite2-%{dbname}-%{version}.mmdb.gz
+Source0:	https://web.archive.org/web/20190409074343id_/http://geolite.maxmind.com/download/geoip/database/GeoLite2-%{dbname}.mmdb.gz
 # Source0-md5:	7e66ec9d1dbb60bfc15b9898863af597
 URL:		http://dev.maxmind.com/geoip/geoip2/geolite2/
 BuildRequires:	gzip
