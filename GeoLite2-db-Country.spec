@@ -2,14 +2,16 @@
 Summary:	GeoLite2 Country - Country database for GeoIP
 Summary(pl.UTF-8):	GeoLite2 Country - baza danych krajów dla GeoIP
 Name:		GeoLite2-db-%{dbname}
-# Updated every month:
-Version:	20131210
+Version:	20190408
 Release:	1
-License:	CC 3.0 BY-SA
+License:	CC-BY-SA v4.0
 Group:		Applications/Databases
-Source0:	http://geolite.maxmind.com/download/geoip/database/GeoLite2-%{dbname}.mmdb.gz?/GeoLite2-%{dbname}-%{version}.mmdb.gz
-# Source0-md5:	e5f0947b07be4c39b07979142155a105
+# Last freely-redistributable (CC-BY-SA 4.0) GeoLite2 build before MaxMind's
+# 2019-12-30 license-key wall, recovered from the Internet Archive.
+Source0:	https://web.archive.org/web/20190409074343id_/http://geolite.maxmind.com/download/geoip/database/GeoLite2-%{dbname}.mmdb.gz?/GeoLite2-%{dbname}-%{version}.mmdb.gz
+# Source0-md5:	7e66ec9d1dbb60bfc15b9898863af597
 URL:		http://dev.maxmind.com/geoip/geoip2/geolite2/
+BuildRequires:	gzip
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -17,13 +19,17 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 GeoLite2 databases are free IP geolocation databases comparable to,
 but less accurate than, MaxMind's GeoIP2 databases.
 
-GeoLite2 databases are updated on the first Tuesday of each month.
+This package ships the last freely-redistributable (CC-BY-SA 4.0) GeoLite2
+release, made before MaxMind required a license key in December 2019. It is
+a frozen historical snapshot and is no longer updated; for current data use
+the geoipupdate package with a (free) MaxMind license key.
 
 %prep
 %setup -qcT
 cp -p %{SOURCE0} GeoLite2-%{dbname}.mmdb.gz
 
-gunzip GeoLite2-%{dbname}.mmdb.gz
+# -N: take the build date from the gzip header, not the archive download mtime
+gunzip -N GeoLite2-%{dbname}.mmdb.gz
 
 ver=$(TZ=GMT stat -c '%y' GeoLite2-%{dbname}.mmdb | awk '{print $1}' | tr -d -)
 if [ "$ver" != %{version} ]; then
